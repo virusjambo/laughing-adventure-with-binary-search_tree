@@ -5,8 +5,13 @@ public class BinarySearchTree<E extends Number> {
 	// What is LCA ?
 	// we start here
 	/*
-	 * 50 / \ 30 70 / \ / \ 20 40 60 80
+	 * 50 
+	 / \ 
+	30 70
+        / \ / \ 
+      20 40 60 80
 	 */
+	 
 
 	// if given node are 20 and 80 LCA is 50
 	// (20,40)=LCA 30
