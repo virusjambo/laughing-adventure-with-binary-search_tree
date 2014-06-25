@@ -1,0 +1,80 @@
+package AddAllGreaterValuesToEveryNodeInGivenBST;
+
+public class BinarySearchTree<E extends Number> {
+
+	/*
+	 * Given a Binary Search Tree (BST), modify it so that all greater values in
+	 * the given BST are added to every node. For example, consider the
+	 * following BST.
+	 * 
+	 * 50 
+	 * / \ 30 70 / \ / \ 20 40 60 80
+	 * 
+	 * The above tree should be modified to following
+	 * 
+	 * 260 / \ 330 150 / \ / \350 300 210 80A simple method for solving this is
+	 * to find sum of all greatervalues for every node. This method would take
+	 * O(n^2) time.
+	 *  We can do it using a single traversal. The idea is to use
+	 * following BST property. If we do reverse Inorder traversal of BST, we get
+	 * all nodes in decreasing order. We do reverse Inorder traversal and keep
+	 * track of the sum of all nodes visited so far, we add this sum to every
+	 * node.
+	 */
+
+	Node<E> root;
+
+	// Inner class to hold value of Node in a tree
+	class Node<E> {
+		Node<E> leftRef;
+		Node<E> rightRef;
+		E value;
+
+		Node(E value) {
+			this.leftRef = null;
+			this.rightRef = null;
+			this.value = value;
+		}
+
+	}
+
+	Node<E> insert(E value, Node<E> node) {
+		// Only executes if Root is null
+		if (root == null)
+			return root = new Node<E>(value);
+		// return Leaf Node
+		if (node == null)
+			return new Node<E>(value);
+
+		if (node.value.doubleValue() > value.doubleValue())
+			node.leftRef = insert(value, node.leftRef);
+		else
+			node.rightRef = insert(value, node.rightRef);
+		return node;
+	}
+	
+	//The logic is here
+	void addAllGreaterValues(Node<E> node,Double sum){
+		if(node==null)
+			return;
+		addAllGreaterValues(node.rightRef,sum);
+		sum=sum.doubleValue()+node.value.doubleValue();
+		node.value=(E)sum;
+		addAllGreaterValues(node.leftRef,sum);
+	}
+	
+
+	public static void main(String[] args) {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(7, bst.root);
+		bst.insert(8, bst.root);
+		bst.insert(9, bst.root);
+		bst.insert(1, bst.root);
+		bst.insert(2, bst.root);
+		bst.insert(3, bst.root);
+		// System.out.println("ALL NODES");
+		// bst.printAll(bst.root);
+		System.out.println("-------------------------------------------");
+		// System.out.println(bst.isBSTMethod2(bst.root,Integer.MIN_VALUE,Integer.MAX_VALUE));
+	}
+}

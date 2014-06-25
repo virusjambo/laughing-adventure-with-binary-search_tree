@@ -1,0 +1,25 @@
+package FromGivenTraverseNeedToCheckIfBothWillFormSameBST;
+
+public class BinarySearchTrees<E extends Number> {
+	
+	
+	
+boolean	findNumber(E arr[],E arr1[],int max,int min,int n,int i1,int i2){
+	int i,j;
+	for(i=i1;i<n;i++){
+		if(arr[i].intValue()>min && arr[i].intValue()<max)
+			break;
+		
+	}
+	for(j=i2;j<n;j++){
+		if(arr[j].intValue()>min && arr[j].intValue()<max)
+			break;
+		
+	}
+		
+		
+	}
+	
+	
+
+}

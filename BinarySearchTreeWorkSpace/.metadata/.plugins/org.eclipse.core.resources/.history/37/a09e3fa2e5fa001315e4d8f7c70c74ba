@@ -1,0 +1,8 @@
+package FromGivenTraverseNeedToCheckIfBothWillFormSameBST;
+
+public class BinarySearchTrees<E extends Number> {
+	
+	
+	
+
+}

@@ -1,0 +1,46 @@
+package AddAllGreaterValuesToEveryNodeInGivenBST;
+
+public class BinaryTree<E extends Number> {
+	Node<E> root;
+
+	// Inner class to hold value of Node in a tree
+	class Node<E> {
+		Node<E> leftRef;
+		Node<E> rightRef;
+		E value;
+
+		Node(E value) {
+			this.leftRef = null;
+			this.rightRef = null;
+			this.value = value;
+		}
+
+	}Node<E> insert(E value, Node<E> node) {
+		// Only executes if Root is null
+		if (root == null)
+			return root = new Node<E>(value);
+		// return Leaf Node
+		if (node == null)
+			return new Node<E>(value);
+
+		if (node.value.doubleValue() > value.doubleValue())
+			node.leftRef = insert(value, node.leftRef);
+		else
+			node.rightRef = insert(value, node.rightRef);
+		return node;
+	}
+
+	public static void main(String[] args) {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(7, bst.root);
+		bst.insert(8, bst.root);
+		bst.insert(9, bst.root);
+		bst.insert(1, bst.root);
+		bst.insert(2, bst.root);
+		bst.insert(3, bst.root);
+		// System.out.println("ALL NODES");
+		// bst.printAll(bst.root);
+		System.out.println("-------------------------------------------");
+		System.out.println(bst.isBSTMethod2(bst.root,Integer.MIN_VALUE,Integer.MAX_VALUE));
+	}
+}
