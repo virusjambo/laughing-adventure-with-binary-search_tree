@@ -1,0 +1,95 @@
+public class BinarySearchTree<E extends Number> {
+
+
+
+
+
+    Node<E> root;
+
+    // Inner class to hold value of Node in a tree
+    class Node<E> {
+        Node<E> leftRef;
+        Node<E> rightRef;
+        E value;
+
+        Node(E value) {
+            this.leftRef = null;
+            this.rightRef = null;
+            this.value = value;
+        }
+
+    }
+    // Method 1:But this solution will  fail for some condition ......Think..Find it out
+    //on your own.So I will go with second solution which is effective .
+    boolean isBinaryTreeMethod1(Node<E> root) {
+        if (root == null)
+            return true;
+        if ((root.leftRef != null && !(root.leftRef.value.doubleValue() < root.value
+                .doubleValue()))) {
+            return false;
+        }
+        if (root.rightRef != null
+                && !(root.rightRef.value.doubleValue() > root.value
+                .doubleValue())) {
+            return false;
+        }
+
+        return isBinaryTreeMethod1(root.leftRef)
+                && isBinaryTreeMethod1(root.rightRef);
+
+    }
+
+    //Method2: traverses down the tree keeping track of the narrowing min
+    //and max allowed values as it goes, looking at each node only once.
+
+    //Lets write it down
+    Node<E> firstValue=null, SecondValue=null ;
+    void isBSTMethod2(Node<E> root,int min,int max){
+        if(root==null)
+            return ;
+        if(root.value.intValue()<min || root.value.intValue()>max){
+            if(firstValue==null)
+                firstValue=root;
+            else
+            SecondValue=root ;
+
+        }
+        if(firstValue!=null && SecondValue!=null){
+            //Swap the elements here
+            E temp=firstValue.value;
+            firstValue.value=SecondValue.value;
+            SecondValue.value=temp;
+            return;
+        }
+        isBSTMethod2(root.leftRef,min,root.value.intValue()-1) ;
+        isBSTMethod2(root.rightRef,root.value.intValue()+1,max);
+    }
+
+
+
+    void printAll(Node<E> root){
+        if(root==null)
+            return;
+        System.out.println(root.value);
+        printAll(root.leftRef);
+        printAll(root.rightRef);
+    }
+
+    public static void main(String[] args) {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+
+        BinarySearchTree.Node root=  bst.new Node<Integer>(7);
+        root.leftRef=bst.new Node<Integer>(5);
+        root.leftRef.leftRef=bst.new Node<Integer>(2);
+        root.leftRef.rightRef=bst.new Node<Integer>(9);
+        root.rightRef=bst.new Node<Integer>(8);
+        root.rightRef.rightRef=bst.new Node<Integer>(6);
+
+
+        // System.out.println("ALL NODES");
+        // bst.printAll(bst.root);
+        System.out.println("-------------------------------------------");
+      bst.isBSTMethod2(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+        bst.printAll(root);
+    }
+}
